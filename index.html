@@ -5,28 +5,363 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>testing lang</title>
+    <title>A Letter for You</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: linear-gradient(135deg, #fff0f5, #f9dce5, #fceee8);
+        font-family: Georgia, serif;
+        overflow-x: hidden;
+        padding: 30px 15px;
+    }
+
+    .container {
+        text-align: center;
+        width: 100%;
+        max-width: 600px;
+        padding: 25px 15px;
+    }
+
+    .small-text {
+        color: #b66b82;
+        letter-spacing: 4px;
+        font-size: 11px;
+        margin-bottom: 15px;
+    }
+
+    h1 {
+        color: #9b435f;
+        font-size: 35px;
+        margin-bottom: 12px;
+    }
+
+    .subtitle {
+        color: #a66b7d;
+        font-size: 15px;
+        margin-bottom: 55px;
+    }
+
+    /* ENVELOPE DESIGN */
+
+    .envelope {
+        position: relative;
+        width: 300px;
+        height: 200px;
+        margin: 0 auto;
+        cursor: pointer;
+        perspective: 1000px;
+    }
+
+    .envelope-back {
+        position: absolute;
+        inset: 0;
+        background: #e9a9bc;
+        border-radius: 5px;
+    }
+
+    /* LETTER DESIGN */
+
+    .letter {
+        position: absolute;
+        width: 88%;
+        height: 90%;
+        left: 6%;
+        bottom: 5%;
+        background: #fffdf8;
+        z-index: 2;
+        overflow: hidden;
+        transition: transform 1s ease, height 1s ease;
+        box-shadow: 0 2px 8px rgba(120, 60, 80, 0.12);
+    }
+
+    .letter-content {
+        padding: 18px;
+        text-align: left;
+        color: #78515b;
+        font-size: 12px;
+        line-height: 1.7;
+    }
+
+    .letter-content p {
+        margin-bottom: 12px;
+    }
+
+    .letter-title {
+        font-size: 18px;
+        color: #a34d69;
+        font-weight: bold;
+    }
+
+    .closing {
+        margin-top: 18px;
+    }
+
+    .signature {
+        font-style: italic;
+        color: #bd7189;
+    }
+
+    /* ENVELOPE FLAP */
+
+    .envelope-flap {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 0;
+        border-left: 150px solid transparent;
+        border-right: 150px solid transparent;
+        border-top: 115px solid #d7839f;
+        transform-origin: top;
+        transition: transform 0.5s ease;
+        z-index: 5;
+    }
+
+    /* FRONT OF ENVELOPE */
+
+    .envelope-front {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 0;
+        border-left: 150px solid #efb7c8;
+        border-right: 150px solid #e6a4b9;
+        border-top: 100px solid transparent;
+        border-bottom: 100px solid #edb0c2;
+        z-index: 4;
+    }
+
+    /* HEART SEAL */
+
+    .heart-seal {
+        position: absolute;
+        top: 75px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 6;
+        color: #a33e60;
+        font-size: 28px;
+        transition: opacity 0.3s ease;
+    }
+
+    /* OPEN LETTER ANIMATION */
+
+    .envelope.open .envelope-flap {
+        transform: rotateX(180deg);
+        z-index: 1;
+    }
+
+    .envelope.open .letter {
+        height: 320px;
+        transform: translateY(-230px);
+        overflow-y: auto;
+        z-index: 7;
+        transition-delay: 0.4s;
+    }
+
+    .envelope.open .heart-seal {
+        opacity: 0;
+    }
+
+    /* BUTTONS AND TEXT */
+
+    .instruction {
+        color: #a66b7d;
+        font-size: 13px;
+        margin-top: 45px;
+    }
+
+    button {
+        margin-top: 20px;
+        padding: 12px 25px;
+        background: #c87591;
+        color: white;
+        border: none;
+        border-radius: 30px;
+        font-family: Georgia, serif;
+        font-size: 14px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background: #a94f70;
+        transform: translateY(-2px);
+    }
+
+    .footer {
+        margin-top: 35px;
+        font-size: 12px;
+        color: #bd8496;
+    }
+
+    /* BACKGROUND DECORATIONS */
+
+    .background-decoration {
+        position: fixed;
+        top: 12%;
+        left: 12%;
+        font-size: 55px;
+        color: rgba(196, 112, 143, 0.2);
+        pointer-events: none;
+    }
+
+    .heart-two {
+        top: 65%;
+        left: 80%;
+        font-size: 70px;
+    }
+
+    .heart-three {
+        top: 75%;
+        left: 15%;
+        font-size: 45px;
+    }
+
+    /* MOBILE RESPONSIVENESS */
+
+    @media (max-width: 400px) {
+        h1 {
+            font-size: 27px;
+        }
+
+        .envelope {
+            transform: scale(0.9);
+            transform-origin: top center;
+            margin-bottom: -20px;
+        }
+
+        .subtitle {
+            margin-bottom: 35px;
+        }
+    }
+</style>
+
 </head>
-<body style="color: rgb(45, 1, 133);">
 
-    <h1 style="color: rgb(0, 0, 0); font-family: 'Times New Roman', Times, serif ;font-size: 60px;
-    ">pwede ba sa phone
-</h1> 
-<h1 style="color: rgb(0, 65, 130); font-family: 'Times New Roman', Times, serif ;font-size: 60px;">
-   
-</h1>
+<body>
 
-    <p> hfsjhajhka</p>
-    <p>
-        baliw baliw
+<div class="background-decoration">♡</div>
+<div class="background-decoration heart-two">♡</div>
+<div class="background-decoration heart-three">✿</div>
+
+<div class="container">
+
+    <p class="small-text">A LITTLE SOMETHING FOR YOU</p>
+
+    <h1>To Someone Special ♡</h1>
+
+    <p class="subtitle">
+        There is something I want you to read...
     </p>
-        
-        
-    
-    
-        <button><a href="https://open.spotify.com/track/6skXl601cDtMNdIqwZqOxb?si=1df7bea2d9684fe3"></a>yes</button>
-        <button><a href="https://open.spotify.com/track/20nXCnSKVgqPpUPfAollgy?si=128e23a6443a42e3"></a>no</button>
-    <p>walang kwenta yang buttons</p>
+
+    <!-- ENVELOPE -->
+
+    <div class="envelope" id="envelope" onclick="openLetter()">
+
+        <div class="envelope-back"></div>
+
+        <!-- LETTER CONTENT -->
+
+        <div class="letter" id="letter">
+
+            <div class="letter-content">
+
+                <p class="letter-title">Dear You, ♡</p>
+
+                <p>
+                    I made this little letter just for you.
+                    Sometimes, words are not enough to express
+                    what we feel, but I hope this can tell you
+                    a little of what is in my heart.
+                </p>
+
+                <p>
+                    Thank you for being someone special.
+                    I hope this reminds you that you are
+                    appreciated more than you know.
+                </p>
+
+                <p>
+                    No matter how difficult life gets,
+                    I hope you always remember that you
+                    deserve happiness, peace, and love.
+                </p>
+
+                <p class="closing">With love,</p>
+
+                <p class="signature">
+                    Someone who cares ♡
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="envelope-flap"></div>
+
+        <div class="envelope-front"></div>
+
+        <div class="heart-seal">♥</div>
+
+    </div>
+
+    <p class="instruction" id="instruction">
+        Click the envelope to open your letter ♡
+    </p>
+
+    <button onclick="openLetter()" id="openButton">
+        Open My Letter
+    </button>
+
+    <button onclick="closeLetter()" id="closeButton" style="display: none;">
+        Close Letter
+    </button>
+
+    <p class="footer">
+        Made with love, just for you ♡
+    </p>
+
+</div>
+
+<!-- JAVASCRIPT FOR OPENING AND CLOSING THE LETTER -->
+
+<script>
+    function openLetter() {
+        document.getElementById("envelope").classList.add("open");
+
+        document.getElementById("instruction").textContent =
+            "A little message from the heart ♡";
+
+        document.getElementById("openButton").style.display = "none";
+
+        document.getElementById("closeButton").style.display =
+            "inline-block";
+    }
+
+    function closeLetter() {
+        document.getElementById("envelope").classList.remove("open");
+
+        document.getElementById("instruction").textContent =
+            "Click the envelope to open your letter ♡";
+
+        document.getElementById("openButton").style.display =
+            "inline-block";
+
+        document.getElementById("closeButton").style.display = "none";
+    }
+</script>
        
      </body>
 </html>
